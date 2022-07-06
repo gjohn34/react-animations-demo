@@ -14,7 +14,7 @@ const transitionStyles = {
     exited: { opacity: 0 },
 };
 
-function TransitionGroupEffect({ inProp }) {
+function TransitionGroupEffect() {
     const [items, setItems] = useState([
         { id: 1, text: 'Buy eggs' },
         { id: 2, text: 'Pay bills' },
@@ -23,46 +23,43 @@ function TransitionGroupEffect({ inProp }) {
     ]);
 
     return (
-        <Transition in={inProp} timeout={500} mountOnEnter={true} unmountOnExit={true}>
-            <>
-                <p>Need to wrap any mapping list with transition group. having just the transition component will not trigger changes</p>
-                <TransitionGroup className="foo">
-                    {
-                        items.map(item => (
-                            <CSSTransition key={item.id} timeout={500} classNames="item">
-                                {state => (
-                                    <p style={{
-                                        ...defaultStyle,
-                                        ...transitionStyles[state]
-                                    }}
-                                    >{item.text}
-                                        <button onClick={() =>
-                                            setItems(items =>
-                                                items.filter(e => e.id !== item.id)
-                                            )
-                                        }>X
-                                        </button></p>
-                                )}
-                            </CSSTransition>
-                        ))
+        <>
+            <p>Need to wrap any mapping list with transition group. having just the transition component will not trigger changes</p>
+            <TransitionGroup className="foo">
+                {
+                    items.map(item => (
+                        <CSSTransition key={item.id} timeout={500} classNames="item">
+                            {state => (
+                                <p style={{
+                                    ...defaultStyle,
+                                    ...transitionStyles[state]
+                                }}
+                                >{item.text}
+                                    <button onClick={() =>
+                                        setItems(items =>
+                                            items.filter(e => e.id !== item.id)
+                                        )
+                                    }>X
+                                    </button></p>
+                            )}
+                        </CSSTransition>
+                    ))
+                }
+            </TransitionGroup>
+            <button
+                onClick={() => {
+                    const text = prompt('Enter some text');
+                    if (text) {
+                        setItems(items => [
+                            ...items,
+                            { id: items.length + 1, text },
+                        ]);
                     }
-                </TransitionGroup>
-                <button
-                    onClick={() => {
-                        const text = prompt('Enter some text');
-                        if (text) {
-                            setItems(items => [
-                                ...items,
-                                { id: items.length + 1, text },
-                            ]);
-                        }
-                    }}
-                >
-                    Add Item
-                </button>
-            </>
-
-        </Transition>
+                }}
+            >
+                Add Item
+            </button>
+        </>
     )
 }
 

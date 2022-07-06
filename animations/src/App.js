@@ -3,27 +3,49 @@ import React, { useState } from "react";
 import TransitionEffect from './components/Transition';
 import TransitionGroupEffect from './components/TransitionGroupEffect';
 
-function TransitionWrapper({ text, child }) {
+
+
+
+function TransitionWrapper({ text, children }) {
+
+  const defaultStyle = {
+    transition: `opacity 300ms ease-in-out`,
+    opacity: 0,
+  }
+
+  const transitionStyles = {
+    entering: { opacity: 0 },
+    entered: { opacity: 1 },
+    exiting: { opacity: 0 },
+    exited: { opacity: 0 },
+  };
+
   const [state, setState] = useState(false)
   return <>
     <h2>{text}</h2>
-    {React.createElement(child, { inProp: state, style: { backgroundColor: 'red' } })}
+    <Transition in={state} timeout={300} mountOnEnter={true} unmountOnExit={true}>
+      {state => (
+        <div style={{
+          ...defaultStyle,
+          ...transitionStyles[state]
+        }}>
+          {children}
+        </div>
+      )}
+    </Transition>
     <button onClick={() => setState(!state)}>{state ? "Hide" : "Show"}</button>
   </>
 }
 
 function App() {
-  const [showTransition, setShowTransition] = useState(false)
-  const [showTransitionGroup, setShowTransitionGroup] = useState(false)
-
   return (
     <div className="App">
-      <TransitionWrapper text="Transitions" child={
-        TransitionEffect
-      } />
-      <TransitionWrapper text="Transitiuon Groups" child={
-        TransitionGroupEffect
-      } />
+      <TransitionWrapper text="Transitions">
+        <TransitionEffect />
+      </TransitionWrapper>
+      <TransitionWrapper text="Transitiuon Groups">
+        <TransitionGroupEffect />
+      </TransitionWrapper>
     </div>
   );
 }

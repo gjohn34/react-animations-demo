@@ -8,8 +8,8 @@ const defaultStyle = {
     opacity: 0,
 }
 
-const transitionStyles = {
-    entering: { opacity: 1 },
+const transitionStylesTwo = {
+    entering: { opacity: 0 },
     entered: { opacity: 1 },
     exiting: { opacity: 0 },
     exited: { opacity: 0 },
@@ -23,7 +23,7 @@ const Fade = ({ in: inProp, close }) => (
                 position: 'absolute',
                 top: 0,
                 right: 0,
-                ...transitionStyles[state]
+                ...transitionStylesTwo[state]
             }}>
                 <button onClick={close}>Close</button>
                 I'm a fade Transition!
@@ -32,7 +32,7 @@ const Fade = ({ in: inProp, close }) => (
     </Transition>
 )
 
-function TransitionEffect({ inProp, style }) {
+function TransitionEffect() {
     const [isIn, setIsIn] = useState(false)
 
     const onClick = () => {
@@ -40,18 +40,11 @@ function TransitionEffect({ inProp, style }) {
     }
 
     return (
-        <Transition in={inProp} timeout={500} mountOnEnter={true} unmountOnExit={true}>
-            {state => (
-                <div style={{
-                    ...style,
-                    ...transitionStyles[state]
-                }}>
-                    <p>element is still in the dom, transition effects are just being applied.</p>
-                    <button onClick={onClick}>BUTTON</button>
-                    <Fade in={isIn} close={onClick} />
-                </div>
-            )}
-        </Transition>
+        <>
+            <p>element is still in the dom, transition effects are just being applied.</p>
+            <button onClick={onClick}>BUTTON</button>
+            <Fade in={isIn} close={onClick} />
+        </>
     );
 }
 
