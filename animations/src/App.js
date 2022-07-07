@@ -2,6 +2,9 @@ import { Transition } from 'react-transition-group';
 import React, { useState } from "react";
 import TransitionEffect from './components/Transition';
 import TransitionGroupEffect from './components/TransitionGroupEffect';
+import InsertBetween from './components/InsertBetween';
+import ColorChange from './components/ColourChange';
+import ScrollBy from './components/ScrollBy';
 
 
 
@@ -37,16 +40,27 @@ function TransitionWrapper({ text, children }) {
   </>
 }
 
+
+
 function App() {
   return (
     <div className="App">
       <TransitionWrapper text="Transitions">
         <TransitionEffect />
       </TransitionWrapper>
-      <TransitionWrapper text="Transitiuon Groups">
+      <TransitionWrapper text="Transition Groups">
         <TransitionGroupEffect />
       </TransitionWrapper>
-    </div>
+      <TransitionWrapper text="Insert Between">
+        <InsertBetween />
+      </TransitionWrapper>
+      <TransitionWrapper text="Colour Change">
+        <ColorChange />
+      </TransitionWrapper>
+      <TransitionWrapper text="Scroll Down">
+        <ScrollBy />
+      </TransitionWrapper>
+    </div >
   );
 }
 
