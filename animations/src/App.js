@@ -5,6 +5,7 @@ import TransitionGroupEffect from './components/TransitionGroupEffect';
 import InsertBetween from './components/InsertBetween';
 import ColorChange from './components/ColourChange';
 import ScrollBy from './components/ScrollBy';
+import Switching from './components/Switching';
 
 
 
@@ -59,6 +60,9 @@ function App() {
       </TransitionWrapper>
       <TransitionWrapper text="Scroll Down">
         <ScrollBy />
+      </TransitionWrapper>
+      <TransitionWrapper text="switch">
+        <Switching />
       </TransitionWrapper>
     </div >
   );
