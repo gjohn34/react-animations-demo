@@ -2,6 +2,8 @@ import React from "react";
 import { SwitchTransition, Transition } from "react-transition-group";
 
 export default function Switching() {
+    // state always starts at entered when the component is mounted
+
     const [readyState, setReadyState] = React.useState(true);
 
     const defaultStyle = {
@@ -29,21 +31,24 @@ export default function Switching() {
 
 
     return (
-        <SwitchTransition mode="out-in">
-            <Transition
-                key={readyState}
-                timeout={300}
-            >
-                {state => (
-                    <div style={{ ...defaultStyle, ...transitionStyle[state] }} >
-                        <button
-                            onClick={() => setReadyState(!readyState)}
-                        >
-                            {readyState.toString()}
-                        </button>
-                    </div>
-                )}
-            </Transition >
-        </SwitchTransition >
+        <>
+            <SwitchTransition mode="out-in">
+                <Transition
+                    key={readyState}
+                    timeout={300}
+                >
+                    {state => (
+                        <div style={{ ...defaultStyle, ...transitionStyle[state] }} >
+                            {console.log(`Readystate: ${readyState} is ${state}`)}
+                            <button
+                                onClick={() => setReadyState(!readyState)}
+                            >
+                                {readyState.toString()}
+                            </button>
+                        </div>
+                    )}
+                </Transition >
+            </SwitchTransition >
+        </>
     );
 }
